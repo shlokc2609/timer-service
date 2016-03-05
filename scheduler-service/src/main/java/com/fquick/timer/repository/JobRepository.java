@@ -8,6 +8,5 @@ import java.util.List;
 /**
  * Created by shlok.chaurasia on 04/03/16.
  */
-public interface JobRepository extends CrudRepository<Job, Integer> {
-
+public interface JobRepository extends CrudRepository<Job, Long> {
 }

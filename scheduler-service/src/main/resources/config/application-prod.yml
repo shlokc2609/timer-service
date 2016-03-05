@@ -20,7 +20,7 @@ spring:
         show_sql: true
         generate-ddl: false
         hibernate:
-            ddl-auto: none
+            ddl-auto: update
             naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
         properties:
                     hibernate.cache.use_second_level_cache: false
