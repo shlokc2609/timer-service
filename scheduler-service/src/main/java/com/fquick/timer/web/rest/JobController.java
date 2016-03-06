@@ -1,15 +1,17 @@
 package com.fquick.timer.web.rest;
+
+import com.codahale.metrics.annotation.Metered;
 import com.fquick.timer.domain.model.Job;
-import com.fquick.timer.repository.JobRepository;
+import com.fquick.timer.dto.RegisterSchedulerDto;
+import com.fquick.timer.exception.ClientNotFoundException;
 import com.fquick.timer.service.JobSchedulerService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by shlok.chaurasia on 04/03/16.
@@ -19,17 +21,30 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class JobController {
 
-//    @Autowired
-//    JobSchedulerService jobSchedulerService;
+    @Autowired
+    JobSchedulerService jobSchedulerService;
 
-    @RequestMapping(value = "/schedule", method = RequestMethod.GET)
-    public ResponseEntity<String> scheduleTask() {
-        //Job job = jobRepository.findOne(1);
-//        log.info(job.getJobType());
-        return new ResponseEntity("test", HttpStatus.NO_CONTENT);
+
+    @RequestMapping(value = "/schedule", method = RequestMethod.POST)
+    @ApiOperation(value = "Create a scheduled Task for client",
+            response = Job.class, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Metered(name = "scheduleTask", absolute = true)
+    public ResponseEntity scheduleTask(@RequestBody RegisterSchedulerDto registerSchedulerDto) {
+        try {
+            Job job = jobSchedulerService.registerJob(registerSchedulerDto);
+            return new ResponseEntity(job, HttpStatus.CREATED);
+        } catch (ClientNotFoundException exception) {
+            return new ResponseEntity("No client found with external id :" + registerSchedulerDto.getClientExternalId() +
+                    " and Use case: " + registerSchedulerDto.getUseCase(), HttpStatus.NOT_FOUND);
+        }
     }
 
-    // Add Execute API.
-    //Add Search
-
+    @RequestMapping(value = "/execute", method = RequestMethod.POST)
+    @ApiOperation(value = "execute eligible tasks for client",
+            response = Job.class, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Metered(name = "executeTask", absolute = true)
+    public ResponseEntity executeTask() {
+        jobSchedulerService.executeJobsForClient();
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }

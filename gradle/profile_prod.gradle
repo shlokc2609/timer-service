@@ -2,7 +2,7 @@ apply plugin: 'spring-boot'
 
 ext {
     logbackLoglevel = "INFO"
-    logpath = "/var/log/flipkart/fquick-morpheus"
+    logpath = "/var/log/flipkart/fquick-timer"
 }
 
 bootRun {

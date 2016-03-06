@@ -1,5 +1,6 @@
 package com.fquick.timer.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +18,11 @@ import java.util.List;
 @Entity
 @Slf4j
 @Table(name = "client")
+@JsonIgnoreProperties({"jobs"})
 public class Client extends BaseEntity{
 
-    @Column(name = "client_external_id")
-     String clientExternalId;
+    @Column(name = "external_id")
+     String externalId;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.JOIN)

@@ -1,5 +1,6 @@
 package com.fquick.timer.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fquick.timer.domain.enums.SubscriptionType;
 import lombok.Data;
 
@@ -8,6 +9,8 @@ import lombok.Data;
  */
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class RegisterClientDto {
 
     private String clientUseCase;

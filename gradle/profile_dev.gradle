@@ -12,6 +12,7 @@ dependencies {
 
 bootRun {
     args = ["--spring.profiles.active=dev"]
+    jvmArgs = ["-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"]
 }
 
 task setProdProperties(dependsOn: bootRun) << {

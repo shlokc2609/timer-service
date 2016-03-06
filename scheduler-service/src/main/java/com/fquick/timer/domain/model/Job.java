@@ -44,5 +44,6 @@ public class Job extends BaseEntity{
     private String messageId;
 
     @Column(name = "status", columnDefinition = "varchar(32)")
+    @Enumerated(value = EnumType.STRING)
     private JobStatus status;
 }

@@ -55,7 +55,7 @@ subprojects {
 
     dependencies {
 
-        compile group: 'com.fquick', name: 'fquick-springboot-core', version: '1.0.6'
+        compile group: 'com.fquick', name: 'fquick-springboot-core', version: '1.0.7'
         compile group: 'io.dropwizard.metrics', name: 'metrics-core'
         compile group: 'io.dropwizard.metrics', name: 'metrics-annotation', version: dropwizard_metrics_version
         compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: spring_boot_version
