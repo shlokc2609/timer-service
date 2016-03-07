@@ -39,12 +39,12 @@ public class JobController {
         }
     }
 
-    @RequestMapping(value = "/execute", method = RequestMethod.POST)
+    @RequestMapping(value = "/{client_id}/execute", method = RequestMethod.POST)
     @ApiOperation(value = "execute eligible tasks for client",
             response = Job.class, produces = MediaType.APPLICATION_JSON_VALUE)
     @Metered(name = "executeTask", absolute = true)
-    public ResponseEntity executeTask() {
-        jobSchedulerService.executeJobsForClient();
+    public ResponseEntity executeTask(@PathVariable("client_id") String clientId) {
+        jobSchedulerService.executeJobsForClient(clientId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

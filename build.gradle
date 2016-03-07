@@ -94,6 +94,9 @@ subprojects {
 
         testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: awaility_version
         testCompile group: 'com.jayway.jsonpath', name: 'json-path'
+        testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+        testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty'
+        testCompile group: 'org.assertj', name: 'assertj-core', version: assertj_core_version
         testCompile group: 'junit', name: 'junit'
         testCompile group: 'org.mockito', name: 'mockito-core'
         testCompile group: 'org.hamcrest', name: 'hamcrest-library'

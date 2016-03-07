@@ -4,10 +4,12 @@ import com.fquick.timer.domain.enums.SubscriptionType;
 import com.fquick.timer.service.ListenerNotifier;
 import com.fquick.timer.service.impl.notifiers.VaradhiNotifier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by shlok.chaurasia on 05/03/16.
  */
+@Component("listenerNotifierFactory")
 public class ListenerNotifierFactory {
     @Autowired
     private VaradhiNotifier varadhiNotifier;
