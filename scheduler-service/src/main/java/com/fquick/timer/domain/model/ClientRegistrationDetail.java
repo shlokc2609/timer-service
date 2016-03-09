@@ -28,13 +28,12 @@ public class ClientRegistrationDetail extends BaseEntity{
     @JsonIdentityReference(alwaysAsId = true)
     private Client client;
 
-    @NotNull
-    @Column(name = "client_use_case", columnDefinition = "varchar(32)")
-    private String clientUseCase;
-
-    @Column(name = "use_case_description")
-    private String useCaseDescription;
-
+    @ManyToOne
+    @JoinColumn(name = "use_case_id")
+    @JsonProperty(value = "use_case_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private UseCase useCase;
 
     @Column(name = "is_active")
     private Boolean isActive;
@@ -44,7 +43,7 @@ public class ClientRegistrationDetail extends BaseEntity{
     @Enumerated(value = EnumType.STRING)
     private SubscriptionType subscriptionType;
 
-    @Column(name = "subscription_description")
-    private String subscriptionDescription;
+    @Column(name = "description")
+    private String description;
 
 }

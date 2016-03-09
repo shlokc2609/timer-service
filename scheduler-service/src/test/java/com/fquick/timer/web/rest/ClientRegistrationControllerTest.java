@@ -30,7 +30,8 @@ import java.util.Map;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest
 @ActiveProfiles("test")
-public class ClientControllerTest extends BaseControllerTest{
+
+public class ClientRegistrationControllerTest extends BaseControllerTest{
 
     @Autowired
     private ClientRepository clientRepository;
@@ -40,12 +41,12 @@ public class ClientControllerTest extends BaseControllerTest{
     @Test
     public void testCreateClient() {
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("clientUseCase", "Orchastration");
-        requestBody.put("subscriptionType", SubscriptionType.ASYNC_TOPIC);
-        requestBody.put("clientExternalId", "ASSD");
-        requestBody.put("isActive", true);
-        requestBody.put("clientUseCaseDescription", "test Description");
-        requestBody.put("subscriptionDescription", "test Description");
+        requestBody.put("client_use_case", "Orchastration");
+        requestBody.put("subscription_type", SubscriptionType.ASYNC_TOPIC);
+        requestBody.put("client_external_id", "WAWSSD");
+        requestBody.put("is_active", true);
+        requestBody.put("client_use_case_description", "test Description");
+        requestBody.put("subscription_description", "test Description");
         Map<String, Object> apiResponse = post("client/register", requestBody);
         Assert.assertNotNull(apiResponse);
     }

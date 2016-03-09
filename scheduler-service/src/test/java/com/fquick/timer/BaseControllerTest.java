@@ -29,9 +29,7 @@ public class BaseControllerTest {
                     httpEntity, Map.class,
                     Collections.EMPTY_MAP);
             return apiResponse;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

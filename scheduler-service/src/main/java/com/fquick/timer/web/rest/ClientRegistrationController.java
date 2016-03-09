@@ -23,7 +23,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/client")
 @Slf4j
-public class ClientController {
+public class ClientRegistrationController {
 
     @Autowired
     ClientService clientService;
@@ -38,6 +38,5 @@ public class ClientController {
         return new ResponseEntity(clientRegistrationDetail, HttpStatus.CREATED);
     }
 
-    // Add Search API.
 
 }

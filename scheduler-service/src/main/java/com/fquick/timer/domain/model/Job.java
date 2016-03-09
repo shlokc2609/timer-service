@@ -8,9 +8,13 @@ import com.fquick.timer.domain.enums.JobStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by shlok.chaurasia on 04/03/16.
@@ -31,9 +35,6 @@ public class Job extends BaseEntity{
     @Column(name = "use_case")
     private String useCase;
 
-    @Column(name = "payload" , columnDefinition = "LONGTEXT")
-    private String payload;
-
     @Column(name = "scheduled_time")
     private DateTime scheduledTime;
 
@@ -46,4 +47,10 @@ public class Job extends BaseEntity{
     @Column(name = "status", columnDefinition = "varchar(32)")
     @Enumerated(value = EnumType.STRING)
     private JobStatus status;
+
+    @OneToMany(mappedBy = "job", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.JOIN)
+    @JsonProperty(value = "job_attributes")
+    private List<JobAttribute> jobAttributes = new ArrayList<>();
+
 }
