@@ -3,7 +3,7 @@ spring:
         active: dev
     datasource:
         dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
-        url: jdbc:mysql://localhost:3306/fquick_timer?useUnicode=true&characterEncoding=utf8
+        url: jdbc:mysql://localhost:3306/fquick_timer_test?useUnicode=true&characterEncoding=utf8
         databaseName:
         serverName:
         username: root
@@ -20,7 +20,7 @@ spring:
         show_sql: true
         generate-ddl: false
         hibernate:
-            ddl-auto: update
+            ddl-auto: create
             naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
         properties:
                     hibernate.cache.use_second_level_cache: false

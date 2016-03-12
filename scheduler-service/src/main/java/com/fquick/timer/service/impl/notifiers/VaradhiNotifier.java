@@ -80,7 +80,6 @@ public class VaradhiNotifier implements ListenerNotifier {
             throw new HeaderMappingFailedException();
         }
         }
-        notifierDto.setPayload(headerString);
         notifierDto.setHeaders(headers);
         return notifierDto;
     }

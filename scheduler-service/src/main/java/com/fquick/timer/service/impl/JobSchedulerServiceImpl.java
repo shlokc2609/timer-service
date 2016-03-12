@@ -72,6 +72,7 @@ public class JobSchedulerServiceImpl implements JobSchedulerService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void executeJobsForClient(String clientId) {
         Client client = clientRepository.findByExternalId(clientId);
         List<ClientRegistrationDetail> clientRegistrationDetails = client.getClientRegistrationDetails();

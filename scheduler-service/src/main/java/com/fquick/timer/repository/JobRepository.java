@@ -16,5 +16,7 @@ public interface JobRepository extends CrudRepository<Job, Long> {
     public final static String JOB_QUERY = "select j from Job j where j.scheduledTime < ?1 and j.status = ?2 and j.client.externalId = ?3";
 
     @Query(JOB_QUERY)
-    public List<Job> getEligibleJobs(DateTime time, JobStatus status, String externalId, Pageable limit);
+    List<Job> getEligibleJobs(DateTime time, JobStatus status, String externalId, Pageable limit);
+
+    List<Job> findByClientId(Long clientId);
 }

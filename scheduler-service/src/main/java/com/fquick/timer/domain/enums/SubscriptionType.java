@@ -12,5 +12,5 @@ public enum SubscriptionType {
     ASYNC_QUEUE("queue"),
     ASYNC_TOPIC("topic");
     @Getter
-    private String businessCase;
+    private String subscriptionType;
 }

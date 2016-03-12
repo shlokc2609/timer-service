@@ -1,6 +1,7 @@
 package com.fquick.timer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fquick.timer.domain.enums.SubscriptionType;
 import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -8,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,5 +35,20 @@ public class BaseControllerTest {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void createClient(String externalId, String useCase,
+                             SubscriptionType subscriptionType, String url, String exchangeName)
+    {
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("client_use_case", useCase);
+        requestBody.put("subscription_type", subscriptionType);
+        requestBody.put("client_external_id", externalId);
+        requestBody.put("url", url);
+        requestBody.put("is_active", true);
+        requestBody.put("exchange_name", exchangeName);
+        requestBody.put("client_use_case_description", "test Description");
+        requestBody.put("subscription_description", "test Description");
+        post("client/register", requestBody);
     }
 }

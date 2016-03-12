@@ -12,13 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by shlok.chaurasia on 05/03/16.
  */
 @Slf4j
 @Component("clientRegistrationDetailService")
-public class ClientRegistrationDetailServiceImpl implements ClientRegistrationDetailService{
+public class ClientRegistrationDetailServiceImpl implements ClientRegistrationDetailService {
 
     @Autowired
     private ClientDetailRepository clientDetailRepository;
@@ -29,13 +30,13 @@ public class ClientRegistrationDetailServiceImpl implements ClientRegistrationDe
     @Override
     public ClientRegistrationDetail save(RegisterClientDto registerClientDto, Client client) {
         UseCase useCase = useCaseRepository.findByName(registerClientDto.getClientUseCase());
-        if(useCase==null)
-        {
+        if (useCase == null) {
             useCase = new UseCase();
             useCase.setUrl(registerClientDto.getUrl());
             useCase.setExchangeName(registerClientDto.getExchange_name());
             useCase.setName(registerClientDto.getClientUseCase());
             useCase.setMethod(registerClientDto.getMethod());
+            useCase.setHeader(registerClientDto.getHeader());
             useCase.setClientRegistrationDetails(new ArrayList<>());
         }
         ClientRegistrationDetail clientRegistrationDetail = new ClientRegistrationDetail();
