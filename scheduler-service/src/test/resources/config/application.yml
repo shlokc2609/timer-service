@@ -1,0 +1,16 @@
+server:
+    port: 13800
+
+async:
+    corePoolSize: 2
+    maxPoolSize: 50
+    queueCapacity: 10000
+
+swagger:
+    title: Fquick Timer
+    description: Fquick Service for Store & Inventory Management
+    version: 0.0.1
+    termsOfServiceUrl: http://jhipster.github.io/
+    contact:
+    license: Apache 2.0
+    licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.html

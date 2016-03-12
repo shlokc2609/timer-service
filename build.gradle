@@ -1,0 +1,122 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}")
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
+    }
+}
+
+subprojects {
+    apply plugin: 'spring-boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    bootRepackage {
+        mainClass = 'com.fquick.Application'
+    }
+
+    springBoot {
+        mainClass = 'com.fquick.Application'
+    }
+
+    bootRun {
+        addResources = false
+    }
+
+    if (project.hasProperty('prod')) {  //./gradlew -Pprod bootRun
+        apply from: '../gradle/profile_prod.gradle'
+    } else if (project.hasProperty('fast')) {
+        apply from: '../gradle/profile_fast.gradle'
+    } else {
+        apply from: '../gradle/profile_dev.gradle'
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url 'http://repo.spring.io/milestone' }
+        maven { url 'http://repo.spring.io/snapshot' }
+        maven { url 'https://repository.jboss.org/nexus/content/repositories/releases' }
+        maven { url 'https://oss.sonatype.org/content/repositories/releases' }
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+        maven { url 'http://repo.maven.apache.org/maven2' }
+        maven { url 'http://artifactory.nm.flipkart.com:8081/artifactory/libs-releases' }
+        maven { url 'http://artifactory.nm.flipkart.com:8081/artifactory/libs-snapshot' }
+        maven { url 'http://artifactory.nm.flipkart.com:8081/artifactory/libs-snapshot-local' }
+    }
+
+
+    dependencies {
+
+        compile group: 'com.fquick', name: 'fquick-springboot-core', version: '1.0.7'
+        compile group: 'io.dropwizard.metrics', name: 'metrics-core'
+        compile group: 'io.dropwizard.metrics', name: 'metrics-annotation', version: dropwizard_metrics_version
+        compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: spring_boot_version
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: spring_boot_version
+        compile group: 'org.springframework.boot', name: 'spring-boot-loader-tools', version: spring_boot_version
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: spring_boot_version
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: spring_boot_version
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: spring_boot_version
+        compile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty', version: spring_boot_version
+        compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: spring_boot_version) {
+            exclude module: 'spring-boot-starter-tomcat'
+        }
+
+        compile group: 'org.jboss.aerogear', name: 'aerogear-otp-java', version: '1.0.0'
+
+        compile group: 'commons-lang', name: 'commons-lang', version: commons_lang_version
+        compile group: 'javax.inject', name: 'javax.inject', version: javax_inject_version
+        compile group: 'javax.transaction', name: 'javax.transaction-api'
+        compile group: 'org.hibernate', name: 'hibernate-core', version: hibernate_entitymanager_version
+        compile group: 'org.hibernate', name: 'hibernate-envers'
+        compile(group: 'org.hibernate', name: 'hibernate-ehcache', version: '5.0.1.Final') {
+            exclude(module: 'ehcache-core')
+        }
+
+        compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.2.1.Final'
+        compile group: 'org.jadira.usertype', name: 'usertype.core', version: usertype_core_version
+
+        compile 'com.github.oxo42:stateless4j:2.5.0'
+
+        compile 'org.antlr:stringtemplate:3.2'
+
+        compile 'commons-collections:commons-collections:3.2.2'
+
+        runtime("com.h2database:h2")
+        runtime("mysql:mysql-connector-java")
+
+        testCompile group: 'com.jayway.awaitility', name: 'awaitility', version: awaility_version
+        testCompile group: 'com.jayway.jsonpath', name: 'json-path'
+        testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+        testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty'
+        testCompile group: 'org.assertj', name: 'assertj-core', version: assertj_core_version
+        testCompile group: 'junit', name: 'junit'
+        testCompile group: 'org.mockito', name: 'mockito-core'
+        testCompile group: 'org.hamcrest', name: 'hamcrest-library'
+
+    }
+
+    configurations {
+        all*.exclude group: 'log4j', module: 'log4j'
+        all*.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        all*.exclude group: 'org.slf4j', module: 'slf4j-jdk14'
+        all*.exclude group: 'org.slf4j', module: 'slf4j-simple'
+        all*.exclude group: 'org.jadira.usertype', module: 'usertype.jodatime'
+    }
+
+}
+
+//clean {
+//    delete "target"
+//}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.6'
+}
